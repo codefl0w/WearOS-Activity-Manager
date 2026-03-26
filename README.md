@@ -42,10 +42,24 @@ Compile Kotlin only:
 
 GitHub Actions workflow:
 
-- Compiles and assembles the debug build on push, pull request, and manual runs
-- Uploads the generated debug APK as an artifact
+- Runs a verification compile on push, pull request, and manual runs
+- Builds a signed release APK on push and manual runs
+- Uploads the signed release APK as an artifact
 
 See [`.github/workflows/android.yml`](.github/workflows/android.yml).
+
+GitHub secrets required for signed release builds:
+
+- `ANDROID_KEYSTORE_BASE64`
+- `ANDROID_KEYSTORE_PASSWORD`
+- `ANDROID_KEY_ALIAS`
+- `ANDROID_KEY_PASSWORD`
+
+To create `ANDROID_KEYSTORE_BASE64` locally:
+
+```powershell
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\path\to\your-release.keystore"))
+```
 
 ## Notes
 

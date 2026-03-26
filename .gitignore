@@ -3,6 +3,9 @@
 .gradle-verify-home/
 .idea/
 *.iml
+signing/
+*.jks
+*.keystore
 build/
 local.properties
 app/build/
