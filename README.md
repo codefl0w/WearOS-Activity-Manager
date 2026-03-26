@@ -1,9 +1,11 @@
+
+<img width="360" height="360" alt="ActMan_LOGO" src="https://github.com/user-attachments/assets/5856e855-945d-4035-9a0d-4dd353c2ecc4" />
+
 # Wear Activity Launcher
 
 Wear-first Android activity launcher for Wear OS devices.
 
-It scans installed packages, surfaces exported activities, and lets you launch them from a watch-friendly UI with search, expandable app groups, shortcut creation, and companion-phone actions.
-
+It scans installed packages, surfaces exported activities, and lets you launch them from a watch-friendly UI with search, expandable app groups and shortcut creation.
 ## Features
 
 - Browse installed apps and expand each app to inspect exported activities.
@@ -12,12 +14,6 @@ It scans installed packages, surfaces exported activities, and lets you launch t
 - Open contact and donate links on the paired phone.
 - Wear-optimized layout with centered header, compact action zone, and round-screen-friendly spacing.
 
-## Tech Stack
-
-- Kotlin
-- Jetpack Compose
-- Compose for Wear OS
-- Gradle Kotlin DSL
 
 ## Local Build
 
@@ -61,8 +57,10 @@ To create `ANDROID_KEYSTORE_BASE64` locally:
 [Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\path\to\your-release.keystore"))
 ```
 
-## Notes
+## Extras
 
-- The app uses `QUERY_ALL_PACKAGES` intentionally because its core feature requires inspecting arbitrary installed packages. This is appropriate for sideload/internal use and may require policy review for Google Play distribution.
-- `Contact Me` and `Donate` URLs live in [`app/src/main/res/values/strings.xml`](app/src/main/res/values/strings.xml).
-- No license file is included yet. Choose a license before publishing the repository publicly.
+Enjoy my work? Please consider a small donation!
+
+<a href="https://buymeacoffee.com/fl0w" target="_blank" rel="noopener noreferrer">
+  <img width="350" alt="yellow-button" src="https://github.com/user-attachments/assets/2e6d44c8-9640-4cb3-bcc8-989595d6b7e9"/>
+</a>
