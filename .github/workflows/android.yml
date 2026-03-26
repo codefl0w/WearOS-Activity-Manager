@@ -43,6 +43,8 @@ jobs:
   signed-release:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ vars.SIGNING_ENVIRONMENT || 'release' }}
 
     steps:
       - name: Checkout
@@ -72,8 +74,14 @@ jobs:
       - name: Decode signing keystore
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           test -n "$ANDROID_KEYSTORE_BASE64"
+          test -n "$ANDROID_KEYSTORE_PASSWORD"
+          test -n "$ANDROID_KEY_ALIAS"
+          test -n "$ANDROID_KEY_PASSWORD"
           mkdir -p signing
           echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > signing/release.keystore
 
