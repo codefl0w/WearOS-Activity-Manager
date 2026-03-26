@@ -2,11 +2,22 @@ name: Android CI
 
 on:
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Optional tag to publish as a GitHub Release, for example V1.0.1
+        required: false
+        type: string
   push:
     branches:
       - main
       - master
+    tags:
+      - "V*"
+      - "v*"
   pull_request:
+
+permissions:
+  contents: read
 
 jobs:
   verify:
@@ -43,6 +54,8 @@ jobs:
   signed-release:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     environment:
       name: ${{ vars.SIGNING_ENVIRONMENT || 'release' }}
 
@@ -70,6 +83,22 @@ jobs:
 
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
+
+      - name: Resolve release metadata
+        id: release_meta
+        env:
+          MANUAL_RELEASE_TAG: ${{ inputs.release_tag }}
+        run: |
+          if [ -n "$MANUAL_RELEASE_TAG" ]; then
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            echo "tag=$MANUAL_RELEASE_TAG" >> "$GITHUB_OUTPUT"
+          elif [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "tag=" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Decode signing keystore
         env:
@@ -99,3 +128,13 @@ jobs:
           name: wear-activity-manager-release
           path: app/build/outputs/apk/release/*.apk
           if-no-files-found: error
+
+      - name: Publish GitHub Release
+        if: steps.release_meta.outputs.publish == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.release_meta.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          files: app/build/outputs/apk/release/*.apk
+          fail_on_unmatched_files: true
+          generate_release_notes: true
