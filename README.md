@@ -1,11 +1,13 @@
 
+
 <img width="360" height="360" alt="ActMan_LOGO" src="https://github.com/user-attachments/assets/5856e855-945d-4035-9a0d-4dd353c2ecc4" />
 
 # Wear Activity Launcher
 
-Wear-first Android activity launcher for Wear OS devices.
+Wear-first Android activity launcher for WearOS devices. 
 
 It scans installed packages, surfaces exported activities, and lets you launch them from a watch-friendly UI with search, expandable app groups and shortcut creation.
+
 ## Features
 
 - Browse installed apps and expand each app to inspect exported activities.
@@ -13,7 +15,13 @@ It scans installed packages, surfaces exported activities, and lets you launch t
 - Long-press an activity to request a pinned launcher shortcut.
 - Open contact and donate links on the paired phone.
 - Wear-optimized layout with centered header, compact action zone, and round-screen-friendly spacing.
+  
 
+## Installation
+
+Enable Wireless ADB on your watch and sideload the app. 
+
+For easy sideloading, you can use [QuickADB](https://github.com/codefl0w/quickadb) on your PC or [GeminiMan WearOS Manager](https://play.google.com/store/apps/details?id=com.geminiman.wearosmanager&hl=en) on your phone.
 
 ## Local Build
 
