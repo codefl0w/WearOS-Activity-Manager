@@ -1,0 +1,7 @@
+<resources>
+    <style name="Theme.ActivityLauncher" parent="@android:style/Theme.DeviceDefault">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+</resources>
+
